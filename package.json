@@ -1,0 +1,25 @@
+{
+    "name": "common-mimetype",
+    "version": "0.0.1",
+    "dependencies": {
+        "gm": "1.22.0",
+        "mongodb": "2.0.27",
+        "mp-common-util" : "https://github.com/mpinc/common-util.git#master",
+        "posix-getopt": "1.0.0",
+        "restify": "4.0.3" ,
+        "seq" : "*"
+    },
+    "devDependencies": {
+        "grunt": "^0.4.5",
+        "grunt-replace": "*",
+        "mocha": "*",
+        "superagent": "*",
+        "supertest": "*"
+    },
+    "scripts": {
+        "start": "node main.js",
+        "test": "mocha test"
+    },
+    "author": "mission public",
+    "license": ""
+}

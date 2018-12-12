@@ -1,0 +1,275 @@
+{
+   "swagger":"2.0",
+   "info":{
+      "description":"The documents for mission public upload and download image file api",
+      "version":"1.0.0",
+      "title":"MP common mimetype api doc",
+      "contact":{
+         "email":"ling.xue@missionpublic.com"
+      },
+      "license":{
+         "name":"View source at github",
+         "url":"https://github.com/mpinc/common-mimetype2"
+      }
+   },
+   "host":"@@apiHost",
+   "basePath":"/api",
+   "tags":[
+      {
+         "name":"images",
+         "description":"get and upload image files ",
+         "externalDocs":{
+            "description":"common mimetype",
+            "url":"@@apiExternalDosUrl"
+         }
+      }
+   ],
+   "schemes":[
+      "http"
+   ],
+   "paths":{
+      "/sizes/{size}/imageSets/{imageId}":{
+         "get":{
+            "tags":[
+               "imagesSet"
+            ],
+            "summary":"get image in defined size",
+            "description":"get image by size ",
+            "operationId":"getImageBySize",
+            "produces":[
+               "image/jpeg"
+            ],
+            "parameters":[
+               {
+                  "name":"size",
+                  "in":"path",
+                  "description":"size of the image, it can be in one of String values (l,m,s) or Number value(640,240,80): l/640  640x640, m/240 240x240, s/80 80x80)",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"imageId",
+                  "in":"path",
+                  "description":"The image unique id",
+                  "required":true,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"stream of image"
+               },
+               "403":{
+                  "description":"Unauthorized"
+               }
+            }
+         }
+      },
+      "/imageSets":{
+         "post":{
+            "tags":[
+               "imagesSet"
+            ],
+            "summary":"uploads an image image will be saved in three size",
+            "description":"when use this api to upload image, image will be save in three size 640x640, 240x240, 80x80",
+            "operationId":"uploadImageSet",
+            "consumes":[
+               "multipart/form-data"
+            ],
+            "produces":[
+               "application/json"
+            ],
+            "parameters":[
+               {
+                  "name":"image",
+                  "in":"formData",
+                  "description":"image to upload",
+                  "required":true,
+                  "type":"file"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"success response",
+                  "schema":{
+                     "$ref":"#/definitions/SuccessResponse"
+                  }
+               }
+            }
+         },
+          "delete":{
+                     "tags":[
+                        "imagesSet"
+                     ],
+                     "summary":"delete an image set, image set will be deleted in all three size",
+                     "description":"when use this api to delete image, image will be deleted in three size 640x640, 240x240, 80x80",
+                     "operationId":"deleteImageSet",
+                     "consumes":[
+                        "application/json"
+                     ],
+                     "produces":[
+                        "application/json"
+                     ],
+                     "parameters":[
+                        {
+                           "name":"imageIds",
+                           "in":"body",
+                           "description":"image ids to be deleted",
+                           "required":true,
+                            "schema":{
+                                "$ref":"#/definitions/DeleteImageRequest"
+                            }
+                        }
+                     ],
+                     "responses":{
+                        "200":{
+                           "description":"success response",
+                           "schema":{
+                              "$ref":"#/definitions/SuccessArrayResponse"
+                           }
+                        }
+                     }
+                  }
+      },
+      "/images/{imageId}":{
+               "get":{
+                  "tags":[
+                     "images"
+                  ],
+                  "summary":"get image by id",
+                  "description":"get image by id ",
+                  "operationId":"getImageById",
+                  "produces":[
+                     "image/jpeg"
+                  ],
+                  "parameters":[
+                     {
+                        "name":"imageId",
+                        "in":"path",
+                        "description":"The image unique id",
+                        "required":true,
+                        "type":"string"
+                     }
+                  ],
+                  "responses":{
+                     "200":{
+                        "description":"stream of image"
+                     },
+                     "403":{
+                        "description":"Unauthorized"
+                     }
+                  }
+               }
+            },
+            "/images":{
+               "post":{
+                  "tags":[
+                     "images"
+                  ],
+                  "summary":"uploads an image image will be saved it's original size with maximum size caped",
+                  "description":"save image in its original size",
+                  "operationId":"uploadImage",
+                  "consumes":[
+                     "multipart/form-data"
+                  ],
+                  "produces":[
+                     "application/json"
+                  ],
+                  "parameters":[
+                     {
+                        "name":"image",
+                        "in":"formData",
+                        "description":"image to upload",
+                        "required":true,
+                        "type":"file"
+                     }
+                  ],
+                  "responses":{
+                     "200":{
+                        "description":"success response",
+                        "schema":{
+                           "$ref":"#/definitions/SuccessResponse"
+                        }
+                     }
+                  }
+               },
+                "delete":{
+                           "tags":[
+                              "images"
+                           ],
+                           "summary":"delete an image",
+                           "description":"",
+                           "operationId":"deleteImage",
+                           "consumes":[
+                              "application/json"
+                           ],
+                           "produces":[
+                              "application/json"
+                           ],
+                           "parameters":[
+                              {
+                                 "name":"imageIds",
+                                 "in":"body",
+                                 "description":"image ids to be deleted",
+                                 "required":true,
+                                  "schema":{
+                                      "$ref":"#/definitions/DeleteImageRequest"
+                                  }
+                              }
+                           ],
+                           "responses":{
+                              "200":{
+                                 "description":"success response",
+                                 "schema":{
+                                    "$ref":"#/definitions/SuccessArrayResponse"
+                                 }
+                              }
+                           }
+                        }
+            }
+   },
+   "definitions":{
+      "DeleteImageRequest":{
+               "type":"object",
+               "properties":{
+                  "imageIds":{
+                     "type":"array",
+                     "items": {
+                             "type": "string"
+                    }
+                  }
+               }
+      },
+      "SuccessResponse":{
+         "type":"object",
+         "properties":{
+            "success":{
+               "type":"boolean"
+            },
+            "msg":{
+               "type":"string"
+            },
+            "id":{
+               "type":"integer"
+            }
+         }
+      },
+       "SuccessArrayResponse":{
+               "type":"object",
+               "properties":{
+                  "success":{
+                     "type":"boolean"
+                  },
+                  "msg":{
+                     "type":"string"
+                  },
+                  "result":{
+                     "type":"array",
+                     "items":{
+                        "$ref":"#/definitions/SuccessResponse"
+                     }
+                  }
+               }
+            }
+   }
+}

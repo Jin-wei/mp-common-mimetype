@@ -1,0 +1,12 @@
+{
+    "apiHost":"39.105.213.26:18093",
+    "apiExternalDosUrl": "http://39.105.213.26:18093",
+    "logLevel":"DEBUG",
+    "logFileFullName":"/var/log/commonmime/common-mimetype.log",
+     "logMaxSize":2048000,
+     "logBackups":10,
+     "mongoConnect":"mongodb://mongodb.pinmudo.com:27017/mimetype",
+    "loginHost" : "39.105.213.26",
+    "loginPort" : 18091,
+    "loginProtocol":"http"
+}

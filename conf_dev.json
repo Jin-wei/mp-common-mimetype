@@ -1,0 +1,12 @@
+{
+    "apiHost":"127.0.0.1:8093",
+    "apiExternalDosUrl": "http://localhost:8093",
+    "logLevel":"ERROR",
+    "logFileFullName":"./common-mimetype.log",
+    "logBackups":10,
+    "logMaxSize":2048000,
+    "mongoConnect":"mongodb://127.0.0.1:27017/common-mime",
+    "loginHost" : "127.0.0.1",
+    "loginPort" : 8091,
+    "loginProtocol":"http"
+}
